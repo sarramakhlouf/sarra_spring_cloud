@@ -1,0 +1,29 @@
+spring:
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+  application:
+    name: "configserve"
+  profiles:
+    #active: native
+    active: git
+  cloud:
+    config:
+      server:
+        #native:
+          #search-locations: "classpath:/config"
+          #search-locations: file:///C:/wamp64/www/sarra-spring-cloud/config-repo
+        git:
+          uri: https://github.com/sarramakhlouf/config-repo.git
+          default-label: main
+          clone-on-start: true
+server:
+  port: 9999
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
