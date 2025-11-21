@@ -16,6 +16,7 @@ public class DomaineServiceImpl implements DomaineService{
     @Override
     public DomaineDto getDomaineByCode(String code) {
         Domaine dom = domaineRepository.findByDomCode(code);
+
         DomaineDto domaineDto = new DomaineDto(
                 dom.getId(),
                 dom.getDomName(),

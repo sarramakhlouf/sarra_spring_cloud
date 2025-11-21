@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class DomaineController {
     private DomaineService domaineService;
 
-    @Value("${build.version}")
-    private String buildVersion;
-
-    @Autowired
-    Configuration configuration;
+//    @Value("${build.version}")
+//    private String buildVersion;
+//
+//    @Autowired
+//    Configuration configuration;
 
     public DomaineController(DomaineService domaineService){
         this.domaineService = domaineService;
@@ -36,15 +36,15 @@ public class DomaineController {
                 domaineService.getDomaineByCode(code), HttpStatus.OK);
     }
 
-    @GetMapping("/version")
-    public ResponseEntity<String> version() {
-        return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
-    }
-
-    @GetMapping("/author")
-    public ResponseEntity<String> retrieveAuthorInfo() {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(configuration.getName()+" "+configuration.getEmail() );
-    }
+//    @GetMapping("/version")
+//    public ResponseEntity<String> version() {
+//        return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
+//    }
+//
+//    @GetMapping("/author")
+//    public ResponseEntity<String> retrieveAuthorInfo() {
+//        return ResponseEntity.status(HttpStatus.OK)
+//                .body(configuration.getName()+" "+configuration.getEmail() );
+//    }
 
 }

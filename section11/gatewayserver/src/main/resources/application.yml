@@ -8,16 +8,20 @@ spring :
       enabled: false
     discovery:
       enabled: true
+#    openfeign:
+#      circuitbreaker:
+#        enabled: true
+
     gateway:
-      routes:
-        - id: r1
-          uri: lb://DOMAINE
-          predicates:
-            - Path= /api/domaines/**
-        - id: r2
-          uri: lb://UNIVERSITE
-          predicates:
-            - Path= /api/universites/**
+#      routes:
+#        - id: r1
+#          uri: lb://DOMAINE
+#          predicates:
+#            - Path= /api/domaines/**
+#        - id: r2
+#          uri: lb://UNIVERSITE
+#          predicates:
+#            - Path= /api/universites/**
       discovery:
         locator:
           enabled: false
@@ -41,3 +45,11 @@ management:
   endpoint:
     gateway:
       access: unrestricted
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10000

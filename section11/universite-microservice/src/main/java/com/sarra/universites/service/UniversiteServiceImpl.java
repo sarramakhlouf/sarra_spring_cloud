@@ -20,6 +20,7 @@ public class UniversiteServiceImpl implements UniversiteService{
 
     @Override
     public APIResponseDto getUniversiteById(Long id) {
+        String dname;
         Universite universite = universiteRepository.findById(id).get();
 
         /*DomaineDto domaineDto = webClient.get()
@@ -28,16 +29,26 @@ public class UniversiteServiceImpl implements UniversiteService{
                 .retrieve()
                 .bodyToMono(DomaineDto.class)
                 .block();*/
-        DomaineDto domaineDto = apiClient.getDomByCode(universite.getDomCode());
+        DomaineDto domaineDto;
+        try {
+            domaineDto = apiClient.getDomByCode(universite.getDomCode());
+        } catch (Exception e) {
+            domaineDto = null; // en cas d'erreur Feign/503
+        }
 
-        UniversiteDto universiteDto =  new UniversiteDto(
+        if (domaineDto == null)
+            dname = "NOT AVAILABLE";
+        else
+            dname = domaineDto.getDomName();
+
+        UniversiteDto universiteDto = new UniversiteDto(
                 universite.getId(),
                 universite.getNom(),
                 universite.getAdresse(),
                 universite.getEmail(),
                 universite.getAnneeFondation(),
                 universite.getDomCode(),
-                domaineDto.getDomName()
+                dname
         );
 
         APIResponseDto apiResponseDto = new APIResponseDto();
